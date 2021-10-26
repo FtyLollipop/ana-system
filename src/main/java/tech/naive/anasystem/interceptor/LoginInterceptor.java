@@ -2,7 +2,10 @@ package tech.naive.anasystem.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
+import tech.naive.anasystem.entity.User;
+import tech.naive.anasystem.service.UserService;
 import tech.naive.anasystem.utils.JWTUtil;
 import tech.naive.anasystem.utils.Result;
 
@@ -15,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  * @date 10/25/2021 11:10 AM
  */
 public class LoginInterceptor implements HandlerInterceptor {
+    @Autowired
+    UserService userService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
@@ -26,8 +32,18 @@ public class LoginInterceptor implements HandlerInterceptor {
         try {
             verify = JWTUtil.verify(token);
             if(verify){
-                request.setAttribute("userName",JWTUtil.decodeUser(token));
-                return true;
+                Long requestUsrId = JWTUtil.decodeUserId(token);
+                User user = userService.getUserById(requestUsrId);
+                if(user == null || user.getDeleted() == 1){
+                    LoginInterceptor.falseHandler(response,Result.build(200,"NOT_FOUND_USER","请求用户不存在"));
+                    return false;
+                }else if(user.getState() == 1){
+                    LoginInterceptor.falseHandler(response,Result.build(200,"BLOCKED","用户已被冻结"));
+                    return false;
+                }else{
+                    request.setAttribute("requestUserId",requestUsrId);
+                    return true;
+                }
             }else {
                 LoginInterceptor.falseHandler(response,Result.build(200,"TOKEN_INVALID","token无效"));
                 return false;

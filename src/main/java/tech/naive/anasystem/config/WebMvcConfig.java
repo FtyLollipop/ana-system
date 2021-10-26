@@ -16,6 +16,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/api/form/**")
+                .addPathPatterns("/api/user/deleteUser")
+                .addPathPatterns("/api/user/changePassword")
         ;
     }
 }

@@ -17,7 +17,7 @@ public interface UserDao {
             "values(#{userId},#{userName},#{password},#{realName},#{role},#{createTime},#{state})")
     void insertUser(User user);
 
-    @Delete("delete from user where user_id = #{userId}")
+    @Delete("update user set deleted = 1,user_name = '' where user_id = #{userId}")
     boolean deleteUser(Long userId);
 
     @Update("update user set user_name = #{userName},password = #{password},real_name = #{realName},state = #{state} where user_id = #{userId}")

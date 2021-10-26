@@ -28,9 +28,15 @@ public interface FormDao {
     @Select("select * from forms where form_id = #{formId}")
     Form getForm(Long formId);
 
+    @Select("select * from forms where approve_user_id = #{approveUserId}")
+    List<Form> getFormsByApproveUser(Long approveUserId);
+
     @Select("select * from forms where user_id = #{userId}")
     List<Form> getFormsByUser(Long userId);
 
-    @Select("select * froms form")
+    @Select("select * from form where state = #{state}")
+    List<Form> getFormsByState(Integer state);
+
+    @Select("select * from form")
     List<Form> getFormList();
 }

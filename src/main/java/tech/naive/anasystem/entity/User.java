@@ -18,4 +18,5 @@ public class User {
     private Integer role;   //0为普通用户，1为管理员
     private String createTime;
     private Integer state;  //0为正常，1为冻结
+    private Integer deleted; //0为正常，1为已删除
 }

@@ -20,14 +20,15 @@ public class JWTUtil {
     private static String SECRET = "c3bff416-993f-4760-9275-132b00256944";
     private static Integer EXPIRATION_TIME_MILLIS = 1000*60*10;
 
-    public static String token(String userName,String password){
+    public static String token(Long userId,String userName,String password){
         //设置私钥和加密算法
         Algorithm algorithm=Algorithm.HMAC256(JWTUtil.SECRET);
         //设置头部信息
         Map<String,Object> header=new HashMap<>();
         header.put("typ","JWT");
         header.put("alg","HS256");
-        String token = JWT.create().withHeader(header).withClaim("userName", userName)
+        String token = JWT.create().withHeader(header).withClaim("requestUserId", userId)
+                .withClaim("userName", userName)
                 .withClaim("password", password).withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME_MILLIS)).sign(algorithm);
         return token;
     }
@@ -49,7 +50,7 @@ public class JWTUtil {
         }
     }
 
-    public static String decodeUser(String token){
-        return JWT.decode(token).getClaim("userName").asString();
+    public static Long decodeUserId(String token){
+        return JWT.decode(token).getClaim("requestUserId").asLong();
     }
 }
