@@ -11,52 +11,55 @@
     <div id="app" class="center" >
         <h1 v-if="isLogin">登录</h1>
         <h1 v-else>注册</h1>
-        <form v-if="isLogin" method="post">
+        <form v-if="isLogin" onsubmit="return false">
             <div class="txt_field">
-                <input type="text" required>
+                <input type="text" v-model="loginForm.userName" required>
                 <span></span>
                 <label >用户名 </label>
             </div>
             <div class="txt_field">
-                <input type="password" required>
+                <input type="password" v-model="loginForm.password" required>
                 <span></span>
                 <label >密码</label>
             </div>
-            <input type="submit" value="登录">
+            <input type="submit" value="登录" @click="login()">
            <div class="signup_link">
             没有账号?<a href="#" v-on:click="switchForm()">注册</a>
            </div>
         </form>
 
-        <form v-else method="post">
+        <form v-else onsubmit="return false">
             <div class="txt_field">
-                <input type="text" required>
+                <input type="text" v-model="registerForm.userName" required>
                 <span></span>
                 <label >用户名 </label>
             </div>
             <div class="txt_field">
-                <input type="text" required>
+                <input type="text" v-model="registerForm.realName" required>
                 <span></span>
                 <label >真实姓名 </label>
             </div>
             <div class="txt_field">
-                <input type="password" required>
+                <input type="password" v-model="registerForm.password" required>
                 <span></span>
                 <label >密码</label>
             </div>
             <div class="txt_field">
-                <input type="password" required>
+                <input type="password" v-model="confirmPassword" required>
                 <span></span>
                 <label >确认密码</label>
             </div>
-            <input type="submit" value="注册">
+            <input type="submit" value="注册" @click="register()">
            <div class="signup_link">
             已有账号?<a href="#" v-on:click="switchForm()">登录</a>
            </div>
-        </form>  
+        </form>
+        <div id="tip_tool"></div>
     </div>
 
     <script src="js/vue.js"></script>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/config/config.js"></script>
     <script src="js/login.js"></script>
 </body>
 </html>

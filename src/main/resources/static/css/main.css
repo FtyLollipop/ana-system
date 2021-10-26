@@ -1,71 +1,84 @@
-body,html{
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-
-
 *{
     margin: 0;
     padding: 0;
     border: 0;
+}
 
+html,body,#app{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 
 #header{
+    height: 50px;
     width: 100%;
-    height: 60px;
-    background: linear-gradient(120deg,#2980b9,#8e44ad);
-    color:white;
-    text-align: center;
+    background-color: rgb(58, 58, 58);
+}
+
+#logo-box{
+    height: 50px;
+    width: 180px;
+    display: flex;
+    cursor: pointer;
+}
+
+#logo{
+    height: 50px;
+    margin: 0 auto;
 }
 
 #content{
     width: 100%;
-    height: 100%;
-    background-color:#8e44ad;
+    height: calc(100% - 50px);
+    background-color: rgb(237, 237, 238);
+    position: relative;
 }
 
 #menu{
-    width: 15%;
-    height: 100%;
-    background-color: rgb(167, 229, 245);
-    float: left;
+    width: 180px;
+    height: 700px;
+    background-color: rgb(197, 210, 226);
+    box-shadow: 2px 0 2px 0 gray;
+    user-select: none;
 }
 
 #menu>h3{
-    width: 100%;
     height: 40px;
     line-height: 40px;
-    background-color: rgb(248, 193, 110);
-    /*字体大小*/
-    font-size: 16px;
-    /*字体粗细*/
-    font-weight: 400;
+    font-weight: 500;
+    border-bottom: 1px gray solid;
+    background-color: rgb(154, 157, 172);
     text-align: center;
+    cursor: pointer;
+}
+
+#menu>h3:hover{
+    background-color: rgb(131, 133, 146);
+}
+
+#menu ul{
+    width: 100%;
 }
 
 #menu li{
-    width: 100%;
-    /*垂直居中*/
+    width:100%;
     height: 40px;
     line-height: 40px;
-    background-color: rgb(150, 247, 187);
-    /*水平居中*/
+    background-color: rgb(219, 221, 235);
+    display: block;
     text-align: center;
+    cursor: pointer;
+}
 
-    color: black;
+#menu li:hover{
+    background-color: rgb(193, 195, 209);
 }
 
 #info{
-    width: 84%;
     height: 100%;
-    background-color: hsla(180, 55%, 72%, 0.603);
-    float: left;
-    border: 1px solid black;
-}
-
-.clear{
-    clear: both;
+    width: calc(100% - 180px);
+    position: absolute;
+    top:0;
+    left:180px;
 }

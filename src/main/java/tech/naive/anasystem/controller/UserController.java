@@ -9,6 +9,9 @@ import tech.naive.anasystem.utils.Encrypt;
 import tech.naive.anasystem.utils.JWTUtil;
 import tech.naive.anasystem.utils.Result;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author 2018034605 冯天阳
  * @version 1.0
@@ -17,6 +20,7 @@ import tech.naive.anasystem.utils.Result;
 @RequestMapping("/api/user")
 @ResponseBody
 @Controller
+@CrossOrigin
 public class UserController {
     @Autowired
     UserService userService;
@@ -44,10 +48,13 @@ public class UserController {
     public Result login(@RequestParam("userName") String userName,
                         @RequestParam("password") String password){
         User user = userService.getUserByUserName(userName);
-        if(user == null || user.getDeleted() == 1 || !user.getPassword().equals(Encrypt.getSHA(password))){
+        if(user == null || user.getDeleted() == 1 || !user.getPassword().equals(Encrypt.encrypt(password))){
             return Result.build(200,"WRONG","用户名或密码错误");
         }else{
-            return Result.ok(JWTUtil.token(user.getUserId(),user.getUserName(),user.getUserName()));
+            Map<String,String> data = new HashMap<>();
+            data.put("token",JWTUtil.token(user.getUserId(),user.getUserName(),user.getUserName()));
+            data.put("role",user.getRole().toString());
+            return Result.ok(data);
         }
     }
 

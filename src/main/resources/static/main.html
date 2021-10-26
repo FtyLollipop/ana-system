@@ -4,29 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>申请与审批系统</title>
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-    <!-- 头部 -->
-   <div id="header">
-        <h1>申请与审批系统<h1>
-   </div>
-
-   <div id="content">
-     
-        <div id="menu">
-
+    <div id="app">
+        <div id="header">
+            <div id="logo-box" @click="toPage('./mainFrame.html')">
+                <img id="logo" src="./img/logo.png">
+            </div>
         </div>
-        <!--iframe -->
-       
-         <iframe id="info" src=""  width="400" frameborder="0"></iframe>
-        
-         <p class="clear"></p>
-   </div>
- 
-   <script src="./js/jquery-1.4.3.min.js"></script>
-   <script src="./data/tb_menu.js"></script>
-   <script src="./js/main.js"></script>
+    
+        <div id="content">
+            <div id="menu">
+                <h3 v-if="role == 0" @click="toPage('./apply.html')">申请管理</h3>
+                <h3 v-if="role == 1" @click="toPage('./approve.html')">审批管理</h3>
+                <h3 v-if="role == 2" @click="toPage('./form.html')">表单管理</h3>
+                <h3 v-if="role == 2" @click="toPage('./user.html')">用户管理</h3>
+            </div>
+            <iframe id="info" src="./mainFrame.html"></iframe>
+        </div>
+    
+        <script src="./js/vue.js"></script>
+        <script src="./js/jquery-3.6.0.min.js"></script>
+        <script src="./js/main.js"></script>
+    </div>
 </body>
 </html>
