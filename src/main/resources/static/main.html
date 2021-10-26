@@ -13,21 +13,23 @@
             <div id="logo-box" @click="toPage('./mainFrame.html')">
                 <img id="logo" src="./img/logo.png">
             </div>
+            <div id="logout" @click="logout()">登出</div>
         </div>
     
         <div id="content">
             <div id="menu">
                 <h3 v-if="role == 0" @click="toPage('./apply.html')">申请管理</h3>
                 <h3 v-if="role == 1" @click="toPage('./approve.html')">审批管理</h3>
+                <h3 v-if="role == 0 || role == 1" @click="toPage('./profile.html')">个人信息修改</h3>
                 <h3 v-if="role == 2" @click="toPage('./form.html')">表单管理</h3>
                 <h3 v-if="role == 2" @click="toPage('./user.html')">用户管理</h3>
             </div>
             <iframe id="info" src="./mainFrame.html"></iframe>
         </div>
-    
-        <script src="./js/vue.js"></script>
-        <script src="./js/jquery-3.6.0.min.js"></script>
-        <script src="./js/main.js"></script>
     </div>
+
+    <script src="./js/vue.js"></script>
+    <script src="./js/jquery-3.6.0.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>

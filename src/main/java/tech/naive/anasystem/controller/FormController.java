@@ -37,8 +37,8 @@ public class FormController {
     }
 
     @RequestMapping(value = "/getFormsByUserId",method = RequestMethod.GET)
-    public Result getFormsByUserId(@RequestParam("userId") Long userId,@RequestAttribute("requestUserId") Long requestUserId){
+    public Result getFormsByUserId(@RequestParam("userId") Long userId,@RequestParam("page") Integer page,@RequestAttribute("requestUserId") Long requestUserId){
         System.out.println(requestUserId);
-        return Result.ok(formService.getFormsByUser(userId));
+        return Result.ok(formService.getFormsByUser(userId,page));
     }
 }

@@ -52,7 +52,8 @@ public class FormService {
         formDao.updateForm(form);
     }
 
-    public List<Form> getFormsByUser(Long userId){
-        return formDao.getFormsByUser(userId);
+    public List<Form> getFormsByUser(Long userId,Integer page){
+
+        return formDao.getFormsByUser(userId,9,9*(page-1));
     }
 }
