@@ -1,22 +1,15 @@
-package tech.naive.anasystem.entity;
+package tech.naive.anasystem.domain;
 
 import lombok.Data;
 import org.springframework.stereotype.Repository;
 
-/**
- * @author 2018034605 冯天阳
- * @version 1.0
- * @date 10/25/2021 9:26 AM
- */
 @Data
 @Repository
-public class Form {
+public class UserForm {
     private Long formId;
-    private Long userId;
     private String title;
     private String content;
     private String createTime;
     private Integer state;
     private String approveTime;
-    private Long approveUserId;
 }

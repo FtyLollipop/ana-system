@@ -1,17 +1,12 @@
 package tech.naive.anasystem.dao;
 
 import org.apache.ibatis.annotations.*;
-import tech.naive.anasystem.entity.AdminForm;
-import tech.naive.anasystem.entity.Form;
-import tech.naive.anasystem.entity.UserForm;
+import tech.naive.anasystem.domain.AdminForm;
+import tech.naive.anasystem.domain.Form;
+import tech.naive.anasystem.domain.UserForm;
 
 import java.util.List;
 
-/**
- * @author 2018034605 冯天阳
- * @version 1.0
- * @date 10/25/2021 3:40 PM
- */
 @Mapper
 public interface FormDao {
     @Insert("insert into forms(user_id,title,content,create_time,state,approve_time,approve_user_id) " +

@@ -4,8 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import tech.naive.anasystem.entity.Form;
-import tech.naive.anasystem.entity.User;
+import tech.naive.anasystem.domain.Form;
+import tech.naive.anasystem.domain.User;
 import tech.naive.anasystem.service.FormService;
 import tech.naive.anasystem.service.UserService;
 import tech.naive.anasystem.utils.Result;
@@ -13,12 +13,6 @@ import tech.naive.anasystem.utils.Result;
 import java.util.HashMap;
 import java.util.Map;
 
-
-/**
- * @author 2018034605 冯天阳
- * @version 1.0
- * @date 10/25/2021 3:39 PM
- */
 @RequestMapping("/api/form")
 @Controller
 @ResponseBody

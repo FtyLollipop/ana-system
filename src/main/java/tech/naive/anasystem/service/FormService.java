@@ -3,20 +3,14 @@ package tech.naive.anasystem.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.naive.anasystem.dao.FormDao;
-import tech.naive.anasystem.entity.AdminForm;
-import tech.naive.anasystem.entity.Form;
-import tech.naive.anasystem.entity.UserForm;
+import tech.naive.anasystem.domain.AdminForm;
+import tech.naive.anasystem.domain.Form;
+import tech.naive.anasystem.domain.UserForm;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-/**
- * @author 2018034605 冯天阳
- * @version 1.0
- * @date 10/25/2021 3:57 PM
- */
 @Service
 public class FormService {
     @Autowired

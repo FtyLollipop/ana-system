@@ -1,15 +1,10 @@
 package tech.naive.anasystem.dao;
 
 import org.apache.ibatis.annotations.*;
-import tech.naive.anasystem.entity.User;
+import tech.naive.anasystem.domain.User;
 
 import java.util.List;
 
-/**
- * @author 2018034605 冯天阳
- * @version 1.0
- * @date 10/25/2021 9:33 AM
- */
 @Mapper
 public interface UserDao {
 

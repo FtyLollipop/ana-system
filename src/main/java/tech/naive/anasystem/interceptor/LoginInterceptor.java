@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import tech.naive.anasystem.entity.User;
+import tech.naive.anasystem.domain.User;
 import tech.naive.anasystem.service.UserService;
 import tech.naive.anasystem.utils.JWTUtil;
 import tech.naive.anasystem.utils.Result;
@@ -15,11 +15,6 @@ import tech.naive.anasystem.utils.Result;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @author 2018034605 冯天阳
- * @version 1.0
- * @date 10/25/2021 11:10 AM
- */
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
     @Autowired

@@ -2,28 +2,18 @@ package tech.naive.anasystem.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 
-/**
- * @author 2018034605 冯天阳
- * @version 1.0
- * @date 10/25/2021 3:36 PM
- */
 @Data
 public class Result implements Serializable {
 
-    // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    // 响应业务状态
     private Integer status;
 
-    // 响应消息
     private String msg;
 
-    // 响应中的数据
     private Object data;
 
     public Result() {

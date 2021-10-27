@@ -1,13 +1,8 @@
-package tech.naive.anasystem.entity;
+package tech.naive.anasystem.domain;
 
 import lombok.Data;
 import org.springframework.stereotype.Repository;
 
-/**
- * @author 2018034605 冯天阳
- * @version 1.0
- * @date 10/25/2021 9:24 AM
- */
 @Data
 @Repository
 public class User {

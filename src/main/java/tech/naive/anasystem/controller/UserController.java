@@ -2,7 +2,7 @@ package tech.naive.anasystem.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import tech.naive.anasystem.entity.User;
+import tech.naive.anasystem.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.naive.anasystem.service.UserService;
 import tech.naive.anasystem.utils.Encrypt;
@@ -12,11 +12,6 @@ import tech.naive.anasystem.utils.Result;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author 2018034605 冯天阳
- * @version 1.0
- * @date 10/25/2021 10:04 AM
- */
 @RequestMapping("/api/user")
 @ResponseBody
 @Controller
