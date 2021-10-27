@@ -1,5 +1,6 @@
 package tech.naive.anasystem.service;
 
+import org.bouncycastle.pqc.crypto.ntru.IndexGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.naive.anasystem.entity.User;
@@ -32,6 +33,14 @@ public class UserService {
         userDao.insertUser(user);
     }
 
+    public void editUser(Long userId,String realName,Integer role,Integer state){
+        User user = userDao.getUser(userId);
+        user.setRealName(realName);
+        user.setRole(role);
+        user.setState(state);
+        userDao.updateUser(user);
+    }
+
     public User getUserById(Long userId){
         return userDao.getUser(userId);
     }
@@ -40,8 +49,17 @@ public class UserService {
         return userDao.getUserByUserName(userName);
     }
 
-    public List<User> getUsers(){
-        return userDao.getUserList();
+    public List<User> getUsers(Integer page){
+        return userDao.getUsers(9,9*(page-1));
+    }
+
+    public Integer getUsersTotal(){
+        int count = userDao.getUsersTotal();
+        int total = 0;
+        if(count%9>0)
+            total ++;
+        total += count/9;
+        return total;
     }
 
     public void deleteUser(Long userId){
@@ -51,6 +69,12 @@ public class UserService {
     public void changePassword(Long userId,String password){
         User user = userDao.getUser(userId);
         user.setPassword(password);
+        userDao.updateUser(user);
+    }
+
+    public void changeRealName(Long userId,String realName){
+        User user = userDao.getUser(userId);
+        user.setRealName(realName);
         userDao.updateUser(user);
     }
 }

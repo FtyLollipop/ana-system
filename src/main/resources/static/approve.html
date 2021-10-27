@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="./css/public.css">
+</head>
+<body>
+    <div id="app">
+        <h1>审批管理</h1>
+        <select v-model="stateFilter">
+            <option value="all">全部</option>
+            <option value="0">待审核</option>
+            <option value="1">已通过</option>
+            <option value="2">未通过</option>
+        </select>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>申请人</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>提交时间</th>
+                <th>状态</th>
+                <th>审批时间</th>
+                <th>审批人</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(item,index) in formList">
+                <td>{{item.formId}}</td>
+                <td>{{item.realName}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.content}}</td>
+                <td>{{item.createTime}}</td>
+                <td v-if="item.state==0" class="orange">待审核</td>
+                <td v-if="item.state==1" class="green">已通过</td>
+                <td v-if="item.state==2" class="red">未通过</td>
+                <td>{{item.approveTime}}</td>
+                <td>{{item.approveRealName}}</td>
+                <td>
+                    <button class="btn" @click="showDetails(index)"> 查看 </button>
+                </td>
+            </tr>
+        </table>
+        <div id="page-btns">
+            <button class="prev-next" @click="prev" :disabled="isPrevDisabled">上一页</button>
+            <button class="page-btn" v-for="index of totalPage" :disabled="currentPage==index" @click="toPage(index)">{{index}}</button>
+            <button class="prev-next" @click="next" :disabled="isNextDisabled">下一页</button>
+        </div>
+
+        <div class="popup-form" v-if="isShowPopupForm && !isPopupFormEditing">
+            <div>
+                <label>ID：</label><span>{{popupForm.formId}}</span>
+            </div>
+            <div>
+                <label>申请人：</label><span>{{popupForm.realName}}</span>
+            </div>
+            <div>
+                <label>标题：</label><span>{{popupForm.title}}</span>
+            </div>
+            <div>
+                <label>内容：</label><span>{{popupForm.content}}</span>
+            </div>
+            <div>
+                <label>提交时间：</label><span>{{popupForm.createTime}}</span>
+            </div>
+            <div>
+                <label>状态：</label><span  v-if="popupForm.state==0" class="orange">待审核</span><span  v-if="popupForm.state==1" class="green">已通过</span><span  v-if="popupForm.state==2" class="red">未通过</span>
+            </div>
+            <div>
+                <label>审批时间：</label><span>{{popupForm.approveTime}}</span>
+            </div>
+            <div>
+                <label>审批人：</label><span>{{popupForm.approveRealName}}</span>
+            </div>
+            <div>
+                <button class="btn" v-if="popupForm.state==0" @click="approveForm(1)">同意申请</button>
+                <button class="btn" v-if="popupForm.state==0" @click="approveForm(2)">拒绝申请</button>
+                <button class="btn" @click="hidePopupForm()">关闭</button>
+            </div>
+        </div>
+
+        <div class="popup-form" v-if="isShowPopupForm && isPopupFormEditing">
+            <div>
+                <label>标题：</label><input type="text" v-model="popupForm.title" @focus="popupFormFocus()">
+            </div>
+            <div>
+                <label>内容：</label><textarea type="text" v-model="popupForm.content" @focus="popupFormFocus()"></textarea>
+            </div>
+            <div class="red">{{popupFormTips}}</div>
+            <div>
+                <button class="btn" @click="submitForm()">提交</button>
+                <button class="btn" @click="hidePopupForm()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/config/config.js"></script>
+    <script src="./js/approve.js"></script>
+</body>
+</html>

@@ -5,6 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import tech.naive.anasystem.entity.User;
+import tech.naive.anasystem.service.UserService;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -17,7 +19,7 @@ import java.util.Map;
  */
 public class JWTUtil {
     private static String SECRET = "c3bff416-993f-4760-9275-132b00256944";
-    private static Integer EXPIRATION_TIME_MILLIS = 1000*60*10;
+    private static Integer EXPIRATION_TIME_MILLIS = 1000*60*120;
 
     public static String token(Long userId,String userName,String password){
         //设置私钥和加密算法

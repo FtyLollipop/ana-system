@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body>
+    <div id="app">
+        <h1>用户管理</h1>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>用户名</th>
+                <th>真实姓名</th>
+                <th>创建时间</th>
+                <th>权限等级</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(item,index) in formList">
+                <td>{{item.userId}}</td>
+                <td>{{item.userName}}</td>
+                <td>{{item.realName}}</td>
+                <td>{{item.createTime}}</td>
+                <td v-if="item.role==0">普通用户</td>
+                <td v-if="item.role==1">审批员</td>
+                <td v-if="item.role==2">管理员</td>
+                <td v-if="item.state==0" class="green">正常</td>
+                <td v-if="item.state==1" class="red">冻结中</td>
+                <td>
+                    <button class="btn" @click="showDetails(index)"> 查看 </button>
+                </td>
+            </tr>
+        </table>
+        <div id="page-btns">
+            <button class="prev-next" @click="prev" :disabled="isPrevDisabled">上一页</button>
+            <button class="page-btn" v-for="index of totalPage" :disabled="currentPage==index" @click="toPage(index)">{{index}}</button>
+            <button class="prev-next" @click="next" :disabled="isNextDisabled">下一页</button>
+        </div>
+
+        <div class="popup-form" v-if="isShowPopupForm && !isPopupFormEditing">
+            <div>
+                <label>ID：</label><span>{{popupForm.userId}}</span>
+            </div>
+            <div>
+                <label>用户名：</label><span>{{popupForm.userName}}</span>
+            </div>
+            <div>
+                <label>真实姓名：</label><span>{{popupForm.realName}}</span>
+            </div>
+            <div>
+                <label>创建时间：</label><span>{{popupForm.createTime}}</span>
+            </div>
+            <div>
+                <label>权限等级：</label><span  v-if="popupForm.role==0">普通用户</span><span  v-if="popupForm.role==1">审批员</span><span  v-if="popupForm.role==2">管理员</span>
+            </div>
+            <div>
+                <label>状态：</label><span  v-if="popupForm.state==0" class="green">正常</span><span  v-if="popupForm.state==1" class="red">冻结中</span>
+            </div>
+            <div>
+                <button class="btn" @click="editForm()"> 修改 </button>
+                <button class="btn" @click="deleteForm()"> 删除 </button>
+                <button class="btn" @click="hidePopupForm()">关闭</button>
+            </div>
+        </div>
+
+        <div class="popup-form" v-if="isShowPopupForm && isPopupFormEditing">
+            <div>
+                <label>真实姓名：</label><input type="text" v-model="popupForm.realName" @focus="popupFormFocus()">
+            </div>
+            <div>
+                <label>权限等级：</label><select v-model="popupForm.role">
+                    <option value="0">普通用户</option>
+                    <option value="1">审批员</option>
+                    <option value="2">管理员</option>
+                </select>
+            </div>
+            <div>
+                <label>状态：</label><select v-model="popupForm.state">
+                    <option value="0">正常</option>
+                    <option value="1">冻结</option>
+                </select>
+            </div>
+            <div class="red">{{popupFormTips}}</div>
+            <div>
+                <button class="btn" @click="submitForm()">提交</button>
+                <button class="btn" @click="hidePopupForm()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/config/config.js"></script>
+    <script src="./js/user.js"></script>
+</body>
+</html>

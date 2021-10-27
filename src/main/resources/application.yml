@@ -3,6 +3,8 @@ spring:
     url: jdbc:mysql://localhost:2333/ana_system?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: FTY19132
+  mvc:
+    dispatch-options-request: true
 
 mybatis:
   configuration:

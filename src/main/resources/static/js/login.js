@@ -50,6 +50,8 @@ var vm = new Vue({
                         },1000)
                     }else if(res.msg==="WRONG"){
                         vm.login_tip("用户名或密码错误");
+                    }else if(res.msg==="BLOCKED"){
+                        vm.login_tip("用户已被冻结");
                     }
                 },
                 error: function(err){

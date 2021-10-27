@@ -54,7 +54,7 @@ var vm = new Vue({
             this.toPage(++this.currentPage);
         },
         getForms(page){
-            let url = this.stateFilter == "all"? "form/getUserForms?page=" : "form/getUserFormsByState?state="+this.stateFilter+"&page="
+            let url = this.stateFilter == "all"? "form/getAdminForms?page=" : "form/getAdminFormsByState?state="+this.stateFilter+"&page="
             $.ajax({
                 type: "GET",
                 url: api_url+url+page,
@@ -93,19 +93,16 @@ var vm = new Vue({
         popupFormFocus(){
             this.popupFormTips = "";
         },
-        createForm(){
-            this.clearPopupForm
-            this.showPopupForm(1);
-        },
-        deleteForm(index){
+        approveForm(state){
             $.ajax({
-                type: "DELETE",
-                url: api_url+"form/cancelForm",
+                type: "POST",
+                url: api_url+"form/approveForm",
                 headers: {
                     "token": localStorage.getItem("token")
                 },
                 data: {
-                    formId: vm.formList[vm.currentShowIndex].formId
+                    formId: vm.formList[vm.currentShowIndex].formId,
+                    state: state
                 },
                 success: function (res) {
                     console.log(res)
@@ -120,39 +117,6 @@ var vm = new Vue({
                     console.log(err);
                 }
             });
-        },
-        submitForm(){
-            if(this.popupForm.title == ""){
-                this.popupFormTips = "标题不能为空";
-                return;
-            }else if(this.popupForm.content == ""){
-                this.popupFormTips = "内容不能为空";
-                return;
-            }else{
-                $.ajax({
-                    type: "POST",
-                    url: api_url+"form/createForm",
-                    headers: {
-                        "token": localStorage.getItem("token")
-                    },
-                    data:{
-                        title: vm.popupForm.title,
-                        content: vm.popupForm.content
-                    },
-                    success: function (res) {
-                        console.log(res)
-                        if(res.msg==="OK"){
-                            vm.hidePopupForm();
-                            vm.getForms(vm.currentPage);
-                        }else if(res.msg==="TOKEN_INVALID"){
-                            window.parent.vm.logout();
-                        }
-                    },
-                    error: function(err){
-                        console.log(err);
-                    }
-                });
-            }
         },
         showDetails(index){
             this.popupForm = this.formList[index];

@@ -37,6 +37,11 @@ table img{
     border-radius: 5px;
     background-color: rgb(27, 178, 238);
     color: white;
+    margin: 0 2px 0 2px;
+}
+
+.btn.thin{
+    width: 45px !important;
 }
 
 #page-btns{
@@ -101,4 +106,67 @@ select{
 
 .green{
     color:green;
+}
+
+.popup-form{
+    height: 500px;
+    width: 800px;
+    position: fixed;
+    top:calc(50vh - 250px);
+    left: calc(50vw - 400px);
+    background-color: white;
+    border:1px solid black;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px 2px rgb(199, 199, 199);
+    overflow-y: auto;
+}
+
+.popup-form>div{
+    width: 600px;
+    margin:10px auto 10px auto;
+    text-align: center;
+}
+
+.popup-form>div:nth-of-type(1){
+    margin-top:50px;
+}
+
+.popup-form>div:nth-last-of-type(1){
+    margin-top:30px;
+}
+
+.popup-form label{
+    display: inline-block;
+    height: 30px;
+    width: 100px;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: right;
+    margin-top:0;
+    vertical-align: top;
+}
+
+.popup-form span{
+    display: inline-block;
+    width: 500px;
+    line-height: 30px;
+    font-size: 18px;
+    text-align: left;
+    word-wrap:break-word; 
+    word-break:break-all; 
+    overflow: hidden;
+}
+
+.popup-form input,.popup-form textarea{
+    display: inline-block;
+    width: 450px;
+    line-height: 30px;
+    font-size: 18px;
+    padding: 0 5px 0 5px;
+    text-align: left;
+    word-wrap:break-word; 
+    word-break:break-all; 
+    resize:vertical;
+    overflow: hidden;
 }

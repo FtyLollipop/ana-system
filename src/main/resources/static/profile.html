@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/profile.css">
+</head>
+<body>
+    <div id="app">
+        <h1>个人信息修改</h1>
+        <div class="popup-form profile">
+            <div>
+                <label>ID：</label><span>{{userDetails.userId}}</span>
+            </div>
+            <div>
+                <label>用户名：</label><span>{{userDetails.userName}}</span>
+            </div>
+            <div>
+                <label>真实姓名：</label><span>{{userDetails.realName}}</span>
+            </div>
+            <div>
+                <label>创建时间：</label><span>{{userDetails.createTime}}</span>
+            </div>
+            <div>
+                <label>权限等级：</label><span  v-if="userDetails.role==0">普通用户</span><span  v-if="userDetails.role==1">审批员</span><span  v-if="userDetails.role==2">管理员</span>
+            </div>
+            <div>
+                <button class="btn" @click="editRealName()"> 修改姓名 </button>
+                <button class="btn" @click="editPassword()"> 修改密码 </button>
+            </div>
+        </div>
+
+        <div class="popup-form" v-if="isShowPopupForm && isEditingName">
+            <div>
+                <label>真实姓名：</label><input type="text" v-model="popupForm.realName" @focus="popupFormFocus()">
+            </div>
+            <div class="red">{{popupFormTips}}</div>
+            <div>
+                <button class="btn" @click="submitRealName()">提交</button>
+                <button class="btn" @click="hidePopupForm()">取消</button>
+            </div>
+        </div>
+
+        <div class="popup-form" v-if="isShowPopupForm && !isEditingName">
+            <div>
+                <label>新密码：</label><input type="password" v-model="popupForm.password" @focus="popupFormFocus()">
+            </div>
+            <div>
+                <label>确认密码：</label><input type="password" v-model="popupForm.confirmPassword" @focus="popupFormFocus()">
+            </div>
+            <div class="red">{{popupFormTips}}</div>
+            <div>
+                <button class="btn" @click="submitPassword()">提交</button>
+                <button class="btn" @click="hidePopupForm()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/config/config.js"></script>
+    <script src="./js/profile.js"></script>
+</body>
+</html>

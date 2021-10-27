@@ -1,10 +1,9 @@
 package tech.naive.anasystem.dao;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+import tech.naive.anasystem.entity.AdminForm;
 import tech.naive.anasystem.entity.Form;
+import tech.naive.anasystem.entity.UserForm;
 
 import java.util.List;
 
@@ -15,36 +14,54 @@ import java.util.List;
  */
 @Mapper
 public interface FormDao {
-    @Select("insert into forms(user_id,title,content,create_time,state,approve_time,approve_user_id) " +
-            "values(#{userId},#{title},#{content},#{create_time},#{state},#{approve_time},#{approve_user_id})")
-    boolean insertForm(Form form);
+    @Insert("insert into forms(user_id,title,content,create_time,state,approve_time,approve_user_id) " +
+            "values(#{userId},#{title},#{content},#{createTime},#{state},#{approveTime},#{approveUserId})")
+    void insertForm(Form form);
 
     @Delete("delete from forms where form_id = #{formId}")
-    boolean deleteForm(Long formId);
+    void deleteForm(Long formId);
 
-    @Update("update user set user_name = #{userName},password = #{password},real_name = #{realName},state = #{state} " +
+    @Update("update forms set title = #{title},content = #{content},state = #{state},approve_time = #{approveTime},approve_user_id = #{approveUserId} " +
             "where form_id = #{formId}")
-    boolean updateForm(Form form);
+    void updateForm(Form form);
 
     @Select("select * from forms where form_id = #{formId}")
     Form getForm(Long formId);
 
-    @Select("select * from forms where approve_user_id = #{approveUserId}")
-    List<Form> getFormsByApproveUser(Long approveUserId);
+    @Select("select * from forms where user_id = #{userId} order by form_id desc limit #{limit} offset #{offset}")
+    List<UserForm> getFormsByUser(Long userId, Integer limit, Integer offset);
 
-    @Select("select * from forms where user_id = #{userId} order by create_time desc limit #{limit} offset #{offset}")
-    List<Form> getFormsByUser(Long userId,Integer limit,Integer offset);
+    @Select("select count(*) from forms where user_id = #{userId}")
+    Integer getFormsByUserTotal(Long userId);
 
-    @Select("select * from form where state = #{state}")
-    List<Form> getFormsByState(Integer state);
+    @Select("select form_id,title,content,create_time,state,approve_time from forms " +
+            "where (user_id = #{userId}) and (state = #{state}) order by form_id desc limit #{limit} offset #{offset}")
+    List<UserForm> getFormsByUserAndState(Long userId,Integer state,Integer limit,Integer offset);
 
-    @Select("select * from form where user_id = #{userId} and state = #{state} " +
-            "order by create_time desc limit #{limit} offset #{offset}")
-    List<Form> getFormsByUserAndState(Long userId,Integer state,Integer limit,Integer offset);
-
-    @Select("select count(*) from form where user_id = #{userId} and state = #{state}")
+    @Select("select count(*) from forms where (user_id = #{userId}) and (state = #{state})")
     Integer getFormsByUserAndStateTotal(Long userId,Integer state);
 
-    @Select("select * from form")
-    List<Form> getFormList();
+    @Select("select form_id,tb.user_id,tb.real_name,title,content,tb.create_time,approve_time,approve_user_id,users.real_name as 'approve_real_name',tb.state from(select form_id,forms.user_id,users.real_name,title,content,forms.create_time,approve_time,approve_user_id,forms.state " +
+            "from forms left join users " +
+            "on forms.user_id = users.user_id) " +
+            "as tb " +
+            "left join users " +
+            "on tb.approve_user_id = users.user_id " +
+            "order by form_id desc limit #{limit} offset #{offset}")
+    List<AdminForm> getForms(Integer limit,Integer offset);
+
+    @Select("select count(*) from forms")
+    Integer getFormsTotal();
+
+    @Select("select form_id,tb.user_id,tb.real_name,title,content,tb.create_time,approve_time,approve_user_id,users.real_name as 'approve_real_name',tb.state from(select form_id,forms.user_id,users.real_name,title,content,forms.create_time,approve_time,approve_user_id,forms.state " +
+            "from forms left join users " +
+            "on forms.user_id = users.user_id where forms.state = #{state}) " +
+            "as tb " +
+            "left join users " +
+            "on tb.approve_user_id = users.user_id " +
+            "order by form_id desc limit #{limit} offset #{offset}")
+    List<AdminForm> getFormsByState(Integer state,Integer limit,Integer offset);
+
+    @Select("select count(*) from forms where state = #{state}")
+    Integer getFormsByStateTotal(Integer state);
 }

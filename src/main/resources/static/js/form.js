@@ -54,7 +54,7 @@ var vm = new Vue({
             this.toPage(++this.currentPage);
         },
         getForms(page){
-            let url = this.stateFilter == "all"? "form/getUserForms?page=" : "form/getUserFormsByState?state="+this.stateFilter+"&page="
+            let url = this.stateFilter == "all"? "form/getAdminForms?page=" : "form/getAdminFormsByState?state="+this.stateFilter+"&page="
             $.ajax({
                 type: "GET",
                 url: api_url+url+page,
@@ -88,24 +88,27 @@ var vm = new Vue({
         clearPopupForm(){
             this.popupForm.title="";
             this.popupForm.content="";
+            this.popupForm.state="";
             this.popupFormTips = "";
         },
         popupFormFocus(){
             this.popupFormTips = "";
         },
-        createForm(){
-            this.clearPopupForm
-            this.showPopupForm(1);
+        editForm(){
+            this.isPopupFormEditing = true;
         },
-        deleteForm(index){
+        submitForm(){
             $.ajax({
-                type: "DELETE",
-                url: api_url+"form/cancelForm",
+                type: "POST",
+                url: api_url+"form/editForm",
                 headers: {
                     "token": localStorage.getItem("token")
                 },
                 data: {
-                    formId: vm.formList[vm.currentShowIndex].formId
+                    formId: vm.popupForm.formId,
+                    title: vm.popupForm.title,
+                    content: vm.popupForm.content,
+                    state: vm.popupForm.state
                 },
                 success: function (res) {
                     console.log(res)
@@ -121,43 +124,34 @@ var vm = new Vue({
                 }
             });
         },
-        submitForm(){
-            if(this.popupForm.title == ""){
-                this.popupFormTips = "标题不能为空";
-                return;
-            }else if(this.popupForm.content == ""){
-                this.popupFormTips = "内容不能为空";
-                return;
-            }else{
-                $.ajax({
-                    type: "POST",
-                    url: api_url+"form/createForm",
-                    headers: {
-                        "token": localStorage.getItem("token")
-                    },
-                    data:{
-                        title: vm.popupForm.title,
-                        content: vm.popupForm.content
-                    },
-                    success: function (res) {
-                        console.log(res)
-                        if(res.msg==="OK"){
-                            vm.hidePopupForm();
-                            vm.getForms(vm.currentPage);
-                        }else if(res.msg==="TOKEN_INVALID"){
-                            window.parent.vm.logout();
-                        }
-                    },
-                    error: function(err){
-                        console.log(err);
-                    }
-                });
-            }
-        },
         showDetails(index){
             this.popupForm = this.formList[index];
             this.currentShowIndex = index;
             this.showPopupForm(0);
+        },
+        deleteForm(){
+            $.ajax({
+                type: "DELETE",
+                url: api_url+"form/deleteForm",
+                headers: {
+                    "token": localStorage.getItem("token")
+                },
+                data: {
+                    formId: vm.formList[vm.currentShowIndex].formId,
+                },
+                success: function (res) {
+                    console.log(res)
+                    if(res.msg==="OK"){
+                        vm.hidePopupForm();
+                        vm.getForms(vm.currentPage);
+                    }else if(res.msg==="TOKEN_INVALID"){
+                        window.parent.vm.logout();
+                    }
+                },
+                error: function(err){
+                    console.log(err);
+                }
+            });
         }
     }
 })

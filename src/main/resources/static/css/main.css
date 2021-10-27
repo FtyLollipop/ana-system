@@ -18,15 +18,21 @@ html,body,#app{
 
 #logo-box{
     height: 50px;
-    width: 180px;
+    width: 200px;
     display: flex;
     /* display: inline-block; */
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 50px;
+    justify-content: center;
+    align-items: center;
+    color:white;
     cursor: pointer;
 }
 
 #logo{
-    height: 50px;
-    margin: 0 auto;
+    height: 40px;
+    margin-right: 5px;
 }
 
 #logout{
@@ -34,7 +40,7 @@ html,body,#app{
     width: 70px;
     line-height: 30px;
     color:white;
-    background-color: rgb(177, 176, 175);
+    background-color: rgb(119, 119, 119);
     border-radius: 5px;
     display: inline-block;
     text-align: center;
@@ -46,11 +52,11 @@ html,body,#app{
 }
 
 #logout:hover{
-    background-color: rgb(155, 154, 153) !important;
+    background-color: rgb(153, 153, 153) !important;
 }
 
 #logout:active{
-    background-color: rgb(214, 214, 214) !important;
+    background-color: rgb(209, 209, 209) !important;
 }
 
 #content{
