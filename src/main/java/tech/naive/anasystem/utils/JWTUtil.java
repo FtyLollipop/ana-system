@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class JWTUtil {
     private static String SECRET = "c3bff416-993f-4760-9275-132b00256944";
-    private static Integer EXPIRATION_TIME_MILLIS = 1000*60*120;
+    private static Integer EXPIRATION_TIME_MILLIS = 1000*60*60*24;
 
     public static String token(Long userId,String userName,String password){
         //设置私钥和加密算法
